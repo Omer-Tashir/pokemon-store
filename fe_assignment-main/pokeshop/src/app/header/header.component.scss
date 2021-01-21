@@ -1,0 +1,15 @@
+.header {
+    &__container {
+        background-color: black;
+        display: flex;
+        flex-direction: row;
+    }
+
+    &__item {
+        color: white;
+        cursor: pointer;
+        &:hover {
+            color: pink;
+        }
+    }
+}
