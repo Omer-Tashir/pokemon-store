@@ -11,6 +11,11 @@
   opacity: 1 !important;
 }
 
+.navbar a.is-active {
+  background-color: rgb(195 48 37);
+  color: rgb(255, 255, 255);
+}
+
 .items-in-cart {
   bottom: 7px;
 }
