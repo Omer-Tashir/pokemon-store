@@ -1,1 +1,20 @@
-<p>home works!</p>
+<ng-container *ngIf="pokemonArr.length > 0">
+  <h3 class="pokedex-title">Pokemons list ({{pokemonArr.length}} of {{totalSize}}):</h3>
+  <div class="pokedex">
+    <div class="pokedex-pokemon" *ngFor="let p of pokemonArr; trackBy: trackByFn" [@simpleFadeAnimation]="'in'">
+      <pokemon-card-item [pokemon]="p" [addEnabled]="true"></pokemon-card-item>
+    </div>
+  </div>
+  
+  <div class="load-button-container">
+    <button mat-button class="load-button" (click)="loadMore()" [disabled]="isLoading || noMoreResults">
+      <span *ngIf="!error">
+        <span *ngIf="isLoading">Loading...</span>
+        <span *ngIf="!isLoading">Load more</span>
+      </span>
+      <span *ngIf="error">
+        Loading failed
+      </span>
+    </button>
+  </div>
+</ng-container>

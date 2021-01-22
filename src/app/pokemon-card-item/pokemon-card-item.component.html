@@ -1,0 +1,20 @@
+<div class="pokemon-card" [class.disabled]="pokemon.isDisabled">
+  <img [ngClass]="{'hidden': !pokemon.imageLoaded}" class="pokedex-pokemon-sprite" (load)="pokemon.imageLoaded = true"
+    (error)="setDefaultPic(pokemon)" [attr.src]="pokemon.sprite" width="96" height="96">
+  
+  <div class="pokedex-pokemon-name">
+    {{ pokemon.name | titlecase }}
+  </div>
+  
+  <ng-container *ngIf="removeEnabled">
+    <button class="remove-btn" mat-mini-fab (click)="removeFromCart(pokemon)">
+      <mat-icon matTooltip="Remove from cart">remove</mat-icon>
+    </button>
+  </ng-container>
+  
+  <ng-container *ngIf="addEnabled">
+    <button class="add-btn" mat-mini-fab (click)="addToCart(pokemon)" [disabled]="pokemon.isDisabled">
+      <mat-icon matTooltip="Add to cart" [matTooltipDisabled]="pokemon.isDisabled">add</mat-icon>
+    </button>
+  </ng-container>
+</div>

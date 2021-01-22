@@ -1,0 +1,20 @@
+.navbar {
+  background-color: black;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar a {
+  color: white;
+  opacity: 1 !important;
+}
+
+.items-in-cart {
+  bottom: 7px;
+}
+
+.content {
+  margin: 25px;
+}

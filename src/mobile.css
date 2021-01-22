@@ -1,0 +1,6 @@
+/* for screens that are 768px or less */
+@media screen and (max-width: 768px) {
+  .mat-tab-links {
+    justify-content: space-evenly;
+  }
+}

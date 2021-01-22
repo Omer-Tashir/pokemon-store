@@ -1,0 +1,28 @@
+.pokemon-card.disabled {
+  opacity: 0.5;
+}
+
+.pokedex-pokemon-sprite {
+  display: block;
+  margin: auto;
+  object-fit: contain;
+  object-position: center;
+  transition: opacity 0.2s linear;
+  opacity: 1;
+}
+
+.pokedex-pokemon-sprite.hidden {
+  opacity: 0;
+}
+
+.pokedex-pokemon-name {
+  text-align: center;
+}
+
+.add-btn,
+.remove-btn {
+  display: block;
+  margin: 15px auto 5px auto;
+  background: #c33025;
+  color: white;
+}

@@ -5,26 +5,23 @@ import { environment } from "../../environments/environment";
 export class PokedexService {
   constructor() { }
 
-  getPokemon(offset: number, limit: number) {
-    this.fetchFromAPI(offset, limit).then(response => {
-      if (response) {
-        console.log(response);
-      }
-    }, error => {
-        console.log(error);
+  async getPokemon(offset: number, limit: number): Promise<any> {
+    const fetchResponse = await this.fetchFromAPI(offset, limit);
+    const results = fetchResponse?.results?.map((item: any, idx: number) => {
+        const id: number = idx + offset + 1;
+        return {
+          id,
+          name: item.name,
+          sprite: `${environment.pokemonSpriteAPI}${id}.png`,
+          imageLoaded: false
+        };
     });
 
-    // return this.http.get(`${environment.pokemonAPI}?offset=${offset}&limit=${limit}`)
-    //   .toPromise()
-    //   .then(response => response.json().results)
-    //   .then(items => items.map((item, idx) => {
-    //     const id: number = idx + offset + 1;
-    //     return {
-    //       id,
-    //       name: item.name,
-    //       sprite: `${environment.pokemonSpriteAPI}${id}.png`
-    //     };
-    //   }));
+    return {
+      results,
+      count: fetchResponse?.count,
+      hasNext: fetchResponse?.next != null
+    };
   }
 
   private async fetchFromAPI(offset: number, limit: number): Promise<any> {

@@ -1,10 +1,43 @@
-@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
 html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-badge-content {
+  background: #c33025;
+  font-weight: 500;
+  height: 20px !important;
+  width: 20px !important;
+}
+
+.mat-tooltip {
+  background-color: #c33025;
+  font-size: 12px;
+}
+
+.pokedex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pokedex-title {
+  text-align: center;
+}
+
+.pokedex-pokemon {
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.16), 0 0 6px rgba(0, 0, 0, 0.23);
+  border-radius: 2px;
 }

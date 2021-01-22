@@ -1,1 +1,7 @@
-<p>login works!</p>
+<div *ngIf="!isLoading" [@fadeInOnEnter] [@fadeOutOnLeave]>
+  <h3 class="pokedex-title">{{auth ? 'You are logged in' : 'Click here in order to Login'}}</h3>
+  <div class="login-button-container">
+    <button mat-button class="login-button" *ngIf="auth" (click)="logout()" [disabled]="inProcess">Logout</button>
+    <button mat-button class="login-button" *ngIf="!auth" (click)="login()" [disabled]="inProcess">Login</button>
+  </div>
+</div>
