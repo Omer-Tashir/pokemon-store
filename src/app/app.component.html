@@ -1,6 +1,7 @@
 <section [@fadeInOnEnter] [@fadeOutOnLeave]>
   <nav mat-tab-nav-bar class="navbar">
     <a mat-tab-link *ngFor="let link of navLinks" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive">
+      <mat-icon class="icon">{{link.data?.icon}}</mat-icon>
       {{link.path | titlecase}}
       <ng-container *ngIf="link.path=='cart'">
         <span class="items-in-cart" matBadge="{{getCartLength()}}" matBadgeOverlap="false"></span>

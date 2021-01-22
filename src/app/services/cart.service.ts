@@ -3,13 +3,14 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { BehaviorSubject } from "rxjs";
 
 import { Pokemon } from "../models/pokemon";
+import { LoggerService } from "./logger.service";
 
 @Injectable()
 export class CartService {
   private isLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private localMemoryPokemonsString!: string;
 
-  constructor(private afAuth: AngularFireAuth) {
+  constructor(private afAuth: AngularFireAuth, private logger: LoggerService) {
     this.afAuth.authState.subscribe(auth => {
       this.isLoggedIn.next(auth != null ?? false);
       if (this.isLoggedIn.getValue() == true && this.localMemoryPokemonsString) {
@@ -19,7 +20,7 @@ export class CartService {
         this.cleanLocalStorage();
       }
     }, error => {
-      console.log(error);
+      this.logger.error(error);
       this.isLoggedIn.next(false);
     });
   }

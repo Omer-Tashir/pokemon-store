@@ -4,6 +4,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Pokemon } from '../models/pokemon';
 import { CartService } from '../services/cart.service';
 import { PokedexService } from '../services/pokedex.service';
+import { LoggerService } from '../services/logger.service';
 
 @Component({
   selector: 'app-home',
@@ -35,10 +36,11 @@ export class HomeComponent implements OnInit {
   error: boolean = false;
   totalSize: number = 0;
 
-  constructor(private pokedexService: PokedexService, private cartService: CartService) {}
+  constructor(private pokedexService: PokedexService, private cartService: CartService, private logger: LoggerService) {}
 
   loadMore() {
     this.isLoading = true;
+    this.logger.debug(`Loading pokemons from API, current: ${this.pokemonArr.length}`);
     this.pokedexService.getPokemon(this.pokemonArr.length, 9)
       .then(result => {
         this.noMoreResults = !result?.hasNext ?? false;
@@ -52,13 +54,14 @@ export class HomeComponent implements OnInit {
           });
 
           this.pokemonArr = this.pokemonArr.concat(result);
+          this.logger.debug(`Load has finished, current: ${this.pokemonArr.length}, hasNext: ${!this.noMoreResults}, totalSize: ${this.totalSize}`);
         }
 
         this.isLoading = false;
         this.error = false;
       })
       .catch((error) => {
-        console.log(error);
+        this.logger.error(error);
         this.error = true;
         this.isLoading = false;
       });

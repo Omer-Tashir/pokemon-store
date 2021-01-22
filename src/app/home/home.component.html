@@ -1,5 +1,5 @@
 <ng-container *ngIf="pokemonArr.length > 0">
-  <h3 class="pokedex-title">Pokemons list ({{pokemonArr.length}} of {{totalSize}}):</h3>
+  <h3 class="pokedex-title">Pokemons list (Showing {{pokemonArr.length}} of {{totalSize}}):</h3>
   <div class="pokedex">
     <div class="pokedex-pokemon" *ngFor="let p of pokemonArr; trackBy: trackByFn" [@simpleFadeAnimation]="'in'">
       <pokemon-card-item [pokemon]="p" [addEnabled]="true"></pokemon-card-item>

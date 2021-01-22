@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { Pokemon } from '../models/pokemon';
 import { CartService } from '../services/cart.service';
+import { LoggerService } from '../services/logger.service';
 import { WarningDialogComponent } from '../core/warning-dialog/warning-dialog.component';
 
 @Component({
@@ -33,7 +34,7 @@ export class CartComponent {
   pokemonsInCart: Array<Pokemon> = new Array<Pokemon>();
   isLoading: boolean = false;
   
-  constructor(private cartService: CartService, private dialog: MatDialog) {
+  constructor(private cartService: CartService, private dialog: MatDialog, private logger: LoggerService) {
     this.pokemonsInCart = this.cartService.getCart();
   }
 
@@ -54,6 +55,7 @@ export class CartComponent {
 
     dialogRef.afterClosed().subscribe((result) => { 
       if (result) {
+        this.logger.info(`Cleaning the cart`);
         let removeStack = this.pokemonsInCart.map(p => {
           return this.cartService.removePokemon(p);
         });
@@ -63,7 +65,7 @@ export class CartComponent {
           this.pokemonsInCart = [];
           this.isLoading = false;
         }).catch(error => {
-          console.log(error);
+          this.logger.error(error);
           this.isLoading = false;
         }); 
       }

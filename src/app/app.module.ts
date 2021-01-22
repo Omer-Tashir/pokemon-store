@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { PokemonCardItemComponent } from './pokemon-card-item/pokemon-card-item.component';
 import { WarningDialogComponent } from './core/warning-dialog/warning-dialog.component';
 
+import { LoggerService } from './services/logger.service';
 import { PokedexService } from './services/pokedex.service';
 import { CartService } from './services/cart.service';
 
@@ -40,7 +41,7 @@ import { environment } from '../environments/environment';
   entryComponents: [
     WarningDialogComponent
   ],
-  providers: [PokedexService, CartService],
+  providers: [LoggerService, PokedexService, CartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

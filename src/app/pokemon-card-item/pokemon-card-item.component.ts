@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
+import { LoggerService } from '../services/logger.service';
 import { CartService } from '../services/cart.service';
 import { Pokemon } from '../models/pokemon';
 import { ReplaySubject } from 'rxjs';
@@ -17,30 +18,33 @@ export class PokemonCardItemComponent implements OnInit {
   pokemonsInCart: Array<Pokemon> = new Array<Pokemon>();
   isLoading: boolean = false;
 
-  constructor(private cartService: CartService) {
+  constructor(private cartService: CartService, private logger: LoggerService) {
     this.pokemonsInCart = this.cartService.getCart();
   }
 
   addToCart(pokemon: Pokemon) {
     this.isLoading = true;
+    this.logger.info(`Adding ${pokemon.name}`);
     this.cartService.addPokemon(pokemon).then(() => {
       pokemon.isDisabled = true;
       this.isLoading = false;
     }).catch(error => {
-      console.log(error);
+      this.logger.error(error);
       this.isLoading = false;
     });
   }
 
   removeFromCart(pokemon: Pokemon) {
+    this.logger.info(`Removing ${pokemon.name}`);
     this.cartService.removePokemon(pokemon).then(() => {
       this.removePokemonSubscriber.next(pokemon);
     }).catch(error => {
-      console.log(error);
+      this.logger.error(error);
     });
   }
   
   setDefaultPic(pokemon: Pokemon) {
+    this.logger.debug(`Setting default image for ${pokemon.name}`);
     pokemon.sprite = "assets/default.png";
   }
 

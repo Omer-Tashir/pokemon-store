@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
+import { LoggerService } from '../services/logger.service';
 
 @Component({
   selector: 'app-login',
@@ -16,12 +17,12 @@ export class LoginComponent {
   isLoading: boolean = true;
   inProcess: boolean = false;
   
-  constructor(private afAuth: AngularFireAuth) {
+  constructor(private afAuth: AngularFireAuth, private logger: LoggerService) {
     this.afAuth.authState.subscribe(auth => {
       this.auth = auth;
       this.isLoading = false;
     }, error => {
-      console.log(error);
+      this.logger.error(error);
       this.isLoading = false;
     });
   }
@@ -30,10 +31,11 @@ export class LoginComponent {
     this.inProcess = true;
     this.afAuth.signInAnonymously()
     .then(() => {
+      this.logger.info('User is now logged in');  
       this.inProcess = false;
     })
     .catch((error) => {
-      console.log(error);
+      this.logger.error(error);
       this.inProcess = false;
     });
   }
@@ -41,10 +43,11 @@ export class LoginComponent {
   logout() {
     this.inProcess = true;
     this.afAuth.signOut().then(() => {
+      this.logger.info('User is now logged out');
       this.inProcess = false;
       this.auth = undefined;
     }).catch(error => {
-      console.log(error);
+      this.logger.error(error);
       this.inProcess = false;
     })
   }
