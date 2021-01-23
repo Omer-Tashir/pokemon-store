@@ -1,16 +1,19 @@
-<ng-container *ngIf="pokemonsInCart.length > 0">
-  <h3 class="pokedex-title">Added to cart:</h3>
-  <div class="pokedex">
-    <div class="pokedex-pokemon" *ngFor="let p of pokemonsInCart" [@simpleFadeAnimation]="'in'">
-      <pokemon-card-item [pokemon]="p" [removeEnabled]="true" (removePokemonSubscriber)="removePokemon($event)"></pokemon-card-item>
+<ng-container *ngIf="pokemonsInCart">
+  <ng-container *ngIf="pokemonsInCart.length > 0">
+    <h3 class="pokedex-title">Added to cart:</h3>
+    <div class="pokedex">
+      <div class="pokedex-pokemon" *ngFor="let p of pokemonsInCart" [@simpleFadeAnimation]="'in'">
+        <pokemon-card-item [pokemon]="p" [removeEnabled]="true" (removePokemonSubscriber)="removePokemon($event)">
+        </pokemon-card-item>
+      </div>
     </div>
-  </div>
-
-  <div class="clear-button-container">
-    <button mat-button class="clear-button" (click)="clearCart()" [disabled]="isLoading">Clear</button>
-  </div>
-</ng-container>
-
-<ng-container *ngIf="pokemonsInCart.length <= 0">
-  <h3 class="pokedex-title">Cart is empty.</h3>
+  
+    <div class="clear-button-container">
+      <button mat-button class="clear-button" (click)="clearCart()" [disabled]="isLoading">Clear</button>
+    </div>
+  </ng-container>
+  
+  <ng-container *ngIf="pokemonsInCart.length <= 0">
+    <h3 class="pokedex-title">Cart is empty.</h3>
+  </ng-container>
 </ng-container>

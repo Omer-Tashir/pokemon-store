@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import { LoggerService } from '../services/logger.service';
 import { CartService } from '../services/cart.service';
 import { Pokemon } from '../models/pokemon';
@@ -9,18 +9,16 @@ import { ReplaySubject } from 'rxjs';
   templateUrl: './pokemon-card-item.component.html',
   styleUrls: ['./pokemon-card-item.component.css']
 })
-export class PokemonCardItemComponent implements OnInit {
+export class PokemonCardItemComponent {
   @Output() removePokemonSubscriber: ReplaySubject<Pokemon> = new ReplaySubject<Pokemon>();
+
   @Input() removeEnabled!: boolean;
   @Input() addEnabled!: boolean;
   @Input() pokemon!: Pokemon;
 
-  pokemonsInCart: Array<Pokemon> = new Array<Pokemon>();
   isLoading: boolean = false;
 
-  constructor(private cartService: CartService, private logger: LoggerService) {
-    this.pokemonsInCart = this.cartService.getCart();
-  }
+  constructor(private cartService: CartService, private logger: LoggerService) {}
 
   addToCart(pokemon: Pokemon) {
     this.isLoading = true;
@@ -46,8 +44,5 @@ export class PokemonCardItemComponent implements OnInit {
   setDefaultPic(pokemon: Pokemon) {
     this.logger.debug(`Setting default image for ${pokemon.name}`);
     pokemon.sprite = "assets/default.png";
-  }
-
-  ngOnInit(): void {
   }
 }

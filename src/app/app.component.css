@@ -9,6 +9,7 @@
 .navbar a {
   color: white;
   opacity: 1 !important;
+  padding: 0 24px 0 12px;
 }
 
 .navbar a.is-active {
